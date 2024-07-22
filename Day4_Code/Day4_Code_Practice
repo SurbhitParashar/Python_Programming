@@ -1,0 +1,194 @@
+#File Handling in Python
+
+file = open("words.txt","rt") #"rt" is used to open file in rt mode
+print(file.name)
+print(file.mode)
+print(file.closed)
+file.close()
+print(file.closed)
+
+dir(file)
+
+# doc string
+def square(n):
+    '''takes a no. n and print its square'''
+    print(n**2)
+
+square(5)
+print(square.__doc__)
+
+# recursion 
+def factorial(n):
+    if n==0 or n==1:
+        return 1
+    else:
+        return n*factorial(n-1)
+print(factorial(5))
+
+# file handling try except method
+
+try:
+    file=open("words1.txt","rt")
+    print(file.name)
+except IOError:
+    print ( "File not Found or incorrect path")   
+except Exception:
+    print("some error occured ")
+finally:
+    print("this has to print")
+    file.close()
+
+a=int(input("enter valur from 5 to 9"))
+if(a<5 or a>9):
+    raise ValueError("value is wrong")
+
+import wel
+wel.welcome()
+
+# reading a file
+f=open("words.txt","r")
+# print(f)
+print(f.read())
+f.close()
+
+#writing a file
+f=open("words2.txt","w")
+f.write("hello")
+f.close()
+
+
+f=open("words2.txt","a")
+f.write("hello")
+f.close()
+
+with open("words2.txt","a") as f:
+    f.write("hello")
+
+with open("words2.txt","r") as f:
+    while True:
+        line = f.readline()
+        if not line:
+            break
+        print(f"marks of maths is {line.split(",")[0]}")
+        print(f"marks of science is {line.split(",")[1]}")
+        print(f"marks of sst is {line.split(",")[2]}")
+
+with open('words2.txt', mode='rt') as file :
+   for line in file:
+       print (line)
+
+with open('words.txt', mode='rt') as file :
+   file_contents = file.read(10)
+   print (file_contents)
+
+with open('words.txt', mode='rt') as file :
+   file.seek(5)
+   print(file.tell())
+   file_contents = file.read(10)
+   print (file_contents)
+
+with open("words.txt","w") as f:
+    f.write("hello world")
+    f.truncate(7)
+
+with open("words.txt","r") as f:
+    print(f.readline())
+
+
+"""
+PIL ( PILLOW LIBRARY )
+"""
+
+
+from PIL import Image
+import os
+
+#os.chdir("/Users/sylvester/Desktop/Python/")
+
+# Open the image and create it's instance
+img = Image.open("sample1.jpg")
+
+# Gives the dimensions or the size of the image
+print (img.size)
+
+# Gives the width of the image
+print (img.width)
+
+# Gives the width of the image
+print (img.height)
+
+
+# Gives the format of image like JPEG, PNG ...
+print (img.format)
+
+# Gives the mode of image like RGB, binary, GreyScale ...
+print (img.mode)
+
+# Displays the Image
+img.show()
+
+
+# Rotate the image with the given angle
+# Create separate instance for rotated image
+# ROTATE_90, ROTATE_180, ROTATE_270
+img_rotate = img.transpose(Image.ROTATE_90)
+ 
+# Displays the rotated image
+img_rotate.show()  
+
+img_rotate.save("sample1.jpg")
+
+
+# Resizing the image 
+small_im = img.resize((300, 150), resample=Image.BICUBIC)
+small_im.save('small_sample1.jpg')
+
+
+# Creating Thumbnail
+img = Image.open("sample.jpg")
+img.thumbnail((150, 100))
+print(img.width, img.height)
+img.save('thumb_sample1.jpg')
+
+
+# Cropping
+img = Image.open("sample.jpg")
+                    # startx, starty,width,height
+crop_im = img.crop(box=(340, 20, 560, 164))
+crop_im.save('crop_sample1.jpg')
+
+
+# Adding a Border
+
+img = Image.open("sample.jpg")
+border_im = Image.new('RGB', (img.width+20, img.height+20), 'yellow')
+border_im.paste(img, (10, 10))
+border_im.save("data/border_sample.jpg")
+
+
+# Flip the image
+# Create separate instance for flipped image
+# FLIP_LEFT_RIGHT, FLIP_TOP_BOTTOM
+img_flip = img.transpose(Image.FLIP_TOP_BOTTOM)
+
+# Displays the rotated image
+img_flip.show()  
+img_flip.save("sample2.jpg")
+
+
+
+# Make Black and White image
+img_bw = Image.open("sample.jpg")
+img_bw.convert(mode='L').save('sample3.jpg')
+img_bw = Image.open("sample3.jpg")
+img_bw.show()
+
+
+# Blur the Images 
+from PIL import Image, ImageFilter
+img_blur = Image.open("sample1.jpg")
+
+# 15 is the radius, default is 2 so it doesn’t show too much 
+img_blur.filter(ImageFilter.GaussianBlur(15)).save('sample4.jpg')
+img_blur = Image.open("sample4.jpg")
+img_blur.show()
