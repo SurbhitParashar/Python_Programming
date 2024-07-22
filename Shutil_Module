@@ -1,0 +1,16 @@
+import shutil
+import os
+
+# to copy file content
+shutil.copy("36.shutil.py","36.shutil_sample.py")
+
+# to copy whole folder
+shutil.copytree("sample1","sample2")
+
+# to take any file outside of any folder 
+shutil.move("sample1/1.py","2.py") #2.py is a name given to the outcoming file and sample me se wo remove ho jayegi
+os.remove("2.py")
+
+# to make five folders with according to days
+for i in range(4):
+    shutil.copytree("day1",f"day{i+2}")
