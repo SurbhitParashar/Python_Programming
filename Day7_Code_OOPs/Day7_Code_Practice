@@ -1,0 +1,262 @@
+class person:
+    name="parashar"
+    occupation="S.D"
+    networth=10
+    def info(self):
+        print(f"name is {self.name} and he is a {self.occupation}")
+
+a=person()
+b=person()
+a.name="qwerty"
+a.occupation="accountant"
+
+b.name="surbhit"
+# print(a.name)
+a.info()
+b.info()
+
+# constructor
+class person:
+    def __init__(self,name,occ):
+        self.name=name
+        self.occupation=occ
+    def info(self):
+        print(f"{self.name} is a {self.occupation}")
+
+a=person("surbhit","software developer")
+b=person("parashar","HR")
+a.info()
+b.info()
+
+# decorator
+
+def greet(fx):
+    def mfx(*args,**kwargs):
+        print("hello")
+        fx(*args,**kwargs)
+        print("thanks for using")
+    return mfx
+
+@greet
+def hello():
+    print("hello world")
+
+@greet
+def add(a,b):
+    print(a+b)
+
+hello()
+add(4,9)
+
+
+# GEETERS
+class myclass:
+    def __init__(self,value):
+        self.value=value
+    def show(self):
+        print(f"value is {self.value}")
+
+    @property
+    def ten_times(self):
+        return (10*self.value)
+
+a=myclass(10)
+print(a.ten_times)
+
+# Inheritance
+# single inheritance
+
+class student:
+    def __init__(self,name,age):
+        self.n=name
+        self.age=age
+
+    def show(self):
+        print(f"name of student is {self.n} and age is {self.age}")
+
+class programmer(student):
+    def intro(self):
+        print("he is a programmer also")
+
+s1=student("surbhit",18)
+s1.show()
+
+s2=programmer("parashar",18)
+s2.intro()
+s2.show()
+
+# Access Modifiers
+
+all variables are public by default 
+private method --  it is a convention only
+
+class employee:
+    def __init__(self):
+        self.__name="surbhit"
+    
+    def _func(self):
+        print("this is a protected method")
+class base(employee):
+    pass
+a=employee()
+b=base()
+# print(a.__name)
+print(a._employee__name) # way to access private variable in python
+a._func()
+b._func()
+
+class main:
+    @staticmethod
+    def add(a,b):
+        return a+b
+    
+a=main()
+# print(a.add(2,3))
+print(main.add(2,3))
+
+class Solution(object):
+    def tribonacci(self, n):
+        if n==0:
+            return 0
+        elif n==1 or n==2:
+            return 1
+        else:
+            return self.tribonacci(n-3) +self.tribonacci(n-2)+self.tribonacci(n-1)
+a=Solution()
+print(a.tribonacci(4))
+
+class employee:
+    company="apple"
+    def show(self):
+        print(f"name is {self.name} and company is {self.company}") 
+
+# this change of class variavle is for instance we use class method to change class variavle 
+    @classmethod
+    def company_cng(self,new_company):
+        self.company=new_company #it is only changing company for particular variavle
+
+a=employee()
+a.name="parashar"
+a.company_cng("google")
+a.show()
+print(employee.company)
+
+class employee:
+    def __init__(self,name,age):
+        self.name=name
+        self.age=age
+    
+    @classmethod
+    def fromstr(self,string):
+        return self(string.split("-")[0],string.split("-")[1])
+
+a=employee("parashar",18)
+print(a.name)
+print(a.age)
+
+string="parashar-18"
+b=employee.fromstr(string)
+print(b.name)
+print(b.age)
+
+              
+# super() --> super keyword is used to run funtion of same name in parent class and child class but we want to run parent class function
+# static method is used instead of self 
+# class method is used 
+class parent:
+    def __init__(self,name,id):
+        self.name=name
+        self.id=id
+
+    def parent_(self):
+        print("this is a parent class")              
+
+class child(parent):
+    def __init__(self,name,id,lang):
+        self.lang=lang
+        super().__init__(name,id)
+
+    def parent_(self):
+        print("class under child with name child")
+        super().parent_()
+    def child_(self):
+        print("this is a child class")
+        super().parent_()
+  
+obj=child()
+obj.child_()
+obj.parent_()
+
+rohan=parent("rohan",5)
+parashar=child("parashar",6,"python")
+print(parashar.name)
+
+# Method Overriding
+
+class shape:
+    def __init__(self,x,y):
+        self.x=x
+        self.y=y
+    # return type of contructor is none
+
+    def area(self):
+        return self.x * self.y
+    
+class circle(shape):
+    def __init__(self,radius): 
+        self.radius=radius
+        super().__init__(radius,radius)
+
+    def area(self):
+        # return 3.14*self.radius*self.radius
+        return 3.14* super().area()    
+# rec=shape(4,5)
+# print(rec.area())
+
+cir=circle(5)
+print(cir.area())
+
+# operator OVERLOADING
+
+class vector:
+    def __init__(self,i,j,k) -> None:
+        self.i=i
+        self.j=j
+        self.k=k
+    def show(self):
+        return (f"{self.i}i + {self.j}j + {self.k}k")
+
+    def __add__(v1,v2):
+        return (f"{v1.i + v2.i}i + {v1.j + v2.j}j + {v1.k + v2.k}k")
+v1=vector(1,8,6)
+# print(v1.show())
+v2=vector(4,8,3)
+# print(v1.show())
+print(v1+v2)
+
+# Multiple Inheritance
+class employee:
+    def __init__(self,name):
+        self.name=name
+    def show(self):
+        return self.name
+
+class dance:
+    def __init__(self,dance):
+        self.dance=dance
+    def show(self):
+        return self.dance 
+
+class employeedance(employee,dance):
+    def __init__(self,name,dance):
+    #     super().__init__(name,dance)
+        self.name=name
+        self.dance=dance
+
+    # def show(self):
+    #     return f"{self.name} {self.dance}"
+
+a=employeedance("parashar","kathak")
+# print(a.show())
+print(a.show())
+print(employeedance.mro())
