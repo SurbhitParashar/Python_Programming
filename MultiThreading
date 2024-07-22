@@ -1,0 +1,32 @@
+import threading
+import time
+from concurrent.futures import ThreadPoolExecutor
+
+def func(second):
+    print(f"function is sleeping for {second} seconds ")
+    time.sleep(second)
+    # print("func end")
+    return second
+
+#normal jindagi
+# func(4)
+# func(2)
+# func(1)
+def main():
+    #mentos jindagi
+    t1=threading.Thread(target=func,args=[4])
+    t2=threading.Thread(target=func,args=[2])
+    t3=threading.Thread(target=func,args=[1])
+
+    t1.start()
+    t2.start()
+    t3.start()
+
+def poolingdemo():
+    with ThreadPoolExecutor() as executor:
+        l=[1,9,5,7] #it can be list of url to download image from internet
+        results=executor.map(func,l)
+        for result in results:
+            print(result)
+         
+poolingdemo()
