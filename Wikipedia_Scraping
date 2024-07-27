@@ -1,0 +1,20 @@
+import requests
+from bs4 import BeautifulSoup
+import json
+
+query=input("enter your search query>")
+url=requests.get(f"https://en.wikipedia.org/wiki/{query}")
+
+html_content=url.content
+soup=BeautifulSoup(html_content,'html.parser')
+
+data= soup.get_text()
+print(data)
+
+print(soup.prettify)
+paras = soup.find_all('p')
+for p in paras:
+    anchor=(p.find_all('a'))
+    print(anchor)
+    
+    print("---------------------------------------")
